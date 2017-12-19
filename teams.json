@@ -1,0 +1,28 @@
+{
+  "teams": [
+    {
+      "name": "Sales",
+      "manager": "Robert Scharf",
+      "members": [
+        "Nicolas Moeret",
+        "Selfie Trial"
+      ]
+    },
+    {
+      "name": "Product",
+      "manager": "Salma Derichou",
+      "members": [
+        "Brian Setiba"
+      ]
+    },
+    {
+      "name": "R&D",
+      "manager": "Salma Derichou",
+      "members": [
+        "Gregory Shell",
+        "Patrick McKenzie",
+        "Mathieu Denim"
+      ]
+    }
+  ]
+}
