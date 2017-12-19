@@ -1,0 +1,13 @@
+1. Write a Ruby script that finds likely users duplicates based on the casing of their full names.
+
+In particular, running your script in the current directory with the example input should give the example output.
+
+Don't worry too much about the parsing or being resilient to pathological inputs, the main interest here are the algorithmical implications and efficiency.
+
+2. What is the time and space complexity of your program in O(n) notation? Can you find an asymptotically better version i.e. a better O(n) complexity?
+If you are using a library, make sure you understand how this library works under the hood. If you don’t know, maybe try to take a look at its source code (or make an educated guess).
+
+3. How would you unit test it? You don't have to write the actual test code, rather examples of the test cases you would use.
+
+4. How would you solve this same problem if the input file did not fit in memory? What is the new complexity of your algorithm? Just give a high-level explanation without code, we will be able to discuss this solution together later.
+
