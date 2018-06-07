@@ -24,35 +24,18 @@ class Team extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.value,
-    };
-  }
-
-  render() {
-    return (
-      <div className="team">
-        {this.state.name}
-      </div>
-    );
-  }
-}
-
-class TeamMembers extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      members: props.value,
+      manager: props.manager,
+      name: props.name,
+      members: props.members,
     };
   }
 
   getMembersListAsString = () => {
-    if(this.state.members.length === 1) { return  this.state.members[0]; }
-
     let stringMembers = '';
     for (let i=0; i<this.state.members.length; i++) {
       stringMembers = stringMembers.concat(this.state.members[i]);
       stringMembers = stringMembers.concat(' ');
-      stringMembers = stringMembers.concat('|');
+      if (i < this.state.members.length -1) { stringMembers = stringMembers.concat('|'); }
       stringMembers = stringMembers.concat(' ');
     }
 
@@ -61,29 +44,34 @@ class TeamMembers extends React.Component {
 
   render() {
     return (
-      <div className="team-members"><p>{this.getMembersListAsString()}</p></div>
+      <div className="team-manager pt-4 pr-4 pl-4 pb-4 mb-4 text-left">
+        <p>{this.state.manager}</p>
+        <div className="team">
+          <p className="pl-1 mt-1 mb-1"><b>{this.state.name}:</b> {this.getMembersListAsString()}</p>
+        </div>
+      </div>
     );
   }
 }
 
+
 class Hierarchy extends React.Component {
-  renderTeam(name, members) {
+  renderTeam(manager, name, members) {
     return (
       <div>
-        <Team value={name} />
-        <TeamMembers value={members} />
+        <Team manager={manager} name={name} members={members} />
       </div>
     )
   }
 
   render() {
     return (
-       <div>
-         <div className="">
-           {this.renderTeam('Product', ['Brian Setiba'])}
-           {this.renderTeam('R&D', ['Gregory Shell', 'Patrick Makenzie', 'Mathieu Denim'])}
-         </div>
-       </div>
+      <div className="container">
+        {this.renderTeam('Salma Derichou', 'Product', ['Brian Setiba'])}
+        {this.renderTeam('Salma Derichou', 'R&D', ['Gregory Shell', 'Patrick Makenzie', 'Mathieu Denim'])}
+        {this.renderTeam('Robert Scharf', 'Sales', ['Nicolas Moeret', 'Selfie Trial'])}
+      </div>
+
     );
   }
 }
