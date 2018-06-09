@@ -62,6 +62,7 @@ class Hierarchy extends React.Component {
     this.state = {
       teams: [],
     };
+    this.loadData();
   }
 
   renderTeam(manager, name, members) {
@@ -83,7 +84,6 @@ class Hierarchy extends React.Component {
   }
 
   render() {
-    this.loadData();
     return (
       <div className="container">
         {this.state.teams.map(team => this.renderTeam(team.manager, team.name, team.members))}
