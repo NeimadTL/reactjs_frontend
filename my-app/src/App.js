@@ -4,6 +4,7 @@ import './App.css';
 import axios from 'axios';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -15,7 +16,9 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
 
+        <UserForm />
         <Hierarchy />
+
       </div>
     );
   }
@@ -87,6 +90,64 @@ class Hierarchy extends React.Component {
     return (
       <div className="container">
         {this.state.teams.map(team => this.renderTeam(team.manager, team.name, team.members))}
+      </div>
+    );
+  }
+}
+
+class UserForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fullName: '',
+      teamId: '',
+      teams: [],
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.loadData();
+  }
+
+  loadData = () => {
+    axios.get('http://localhost:3000/teams.json')
+      .then(response => this.setState({ teams: response.data.teams }))
+      .catch(error => console.log(error))
+  }
+
+  handleChange(event) {
+    const name = event.target.name;
+    const value = event.target.value
+    this.setState({[name]: value});
+  }
+
+
+
+  handleSubmit(event) {
+    alert('Form was submitted with: ' + this.state.fullName + ' and ' + this.state.teamId);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <div className="container mb-4">
+        <form onSubmit={this.handleSubmit}>
+          <div className="row">
+            <div className="col">
+              <input name="fullName" className="form-control" type="text" placeholder="User full name"
+              value={this.state.fullName}  onChange={this.handleChange} />
+            </div>
+            <div className="col">
+              <select name="teamId" className="custom-select" value={this.state.teamId} onChange={this.handleChange}>
+                <option selected>Select team</option>
+                {this.state.teams.map(team => <option key={team.id} value={team.id}>{team.name}</option>)}
+              </select>
+            </div>
+            <div className="float-right">
+              <input className="btn btn-primary" type="submit" value="Submit" />
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
