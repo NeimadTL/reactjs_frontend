@@ -124,8 +124,15 @@ class UserForm extends React.Component {
 
 
   handleSubmit(event) {
-    alert('Form was submitted with: ' + this.state.fullName + ' and ' + this.state.teamId);
     event.preventDefault();
+
+    const user = {
+      full_name: this.state.fullName,
+      team_id: this.state.teamId,
+    };
+
+    axios.post('http://localhost:3000/users.json', { user })
+      .then(response => console.log(response))
   }
 
   render() {
@@ -143,7 +150,7 @@ class UserForm extends React.Component {
                 {this.state.teams.map(team => <option key={team.id} value={team.id}>{team.name}</option>)}
               </select>
             </div>
-            <div className="float-right">
+            <div className="col">
               <input className="btn btn-primary" type="submit" value="Submit" />
             </div>
           </div>
