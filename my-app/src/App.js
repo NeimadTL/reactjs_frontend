@@ -102,6 +102,8 @@ class UserForm extends React.Component {
       fullName: '',
       teamId: '',
       teams: [],
+      succesMessage: '',
+      errors: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -122,6 +124,28 @@ class UserForm extends React.Component {
   }
 
 
+  renderSuccessMessage() {
+    if (this.state.succesMessage !== ''){
+      return (
+        <div className="p-3 mb-2 bg-success text-white rounded">
+          {this.state.succesMessage}
+        </div>
+      )
+    }
+  }
+
+  renderErrors() {
+
+    if (this.state.errors.length > 0){
+      var listErrors = '';
+
+      return (
+        <div className="p-3 mb-2 bg-danger text-white rounded">
+          {this.state.errors.map(error => error)}
+        </div>
+      )
+    }
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -132,12 +156,24 @@ class UserForm extends React.Component {
     };
 
     axios.post('http://localhost:3000/users.json', { user })
-      .then(response => console.log(response))
+      .then(response => {
+        this.setState({ succesMessage : response.data.message })
+        console.log(response)
+      })
+      .catch(error => {
+        this.setState({ errors : error.response.data.users })
+        console.log(error.response)
+      })
+
+
+
   }
 
   render() {
     return (
       <div className="container mb-4">
+        {this.renderSuccessMessage()}
+        {this.renderErrors()}
         <form onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col">
@@ -151,7 +187,7 @@ class UserForm extends React.Component {
               </select>
             </div>
             <div className="col">
-              <input className="btn btn-primary" type="submit" value="Submit" />
+              <input className="btn btn-primary" type="submit" value="Add user" />
             </div>
           </div>
         </form>
