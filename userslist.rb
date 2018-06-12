@@ -35,8 +35,9 @@ class UserList
     end
 
     def duplicates(user)
-      USERS.map { |value| value if value.downcase.eql?(user.downcase) }.compact
-      # USERS.reject { |value| !value.downcase.eql?(user.downcase) }
+      lowercased_user = user.downcase
+      USERS.map { |value| value if value.downcase.eql?(lowercased_user) }.compact
+      # USERS.reject { |value| !value.downcase.eql?(lowercased_user) }
     end
 
 end
